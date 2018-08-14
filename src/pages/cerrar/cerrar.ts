@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 import { LoginPage } from '../login/login';
 import { Storage } from '@ionic/storage';
 
@@ -21,22 +21,27 @@ export class CerrarPage {
     public navCtrl: NavController,
     public navParams: NavParams, 
     public storage: Storage,
-    public alertCtrl: AlertController
+    public loadingCtrl: LoadingController
   ) {
   }
 
-  ionViewDidLoad() {
-    this.showAlert('Cerrando Sesión');
+  ionViewDidLoad() {    
+    this.presentLoadingDefault();
     //this.navCtrl.push(LoginPage);  
     this.storage.clear();
     this.navCtrl.setRoot(LoginPage, {}, {animate: true, direction: 'forward'}); 
   }
 
-  showAlert(tittle) {
-    const alert = this.alertCtrl.create({
-      title: tittle
+  presentLoadingDefault() {
+    let loading = this.loadingCtrl.create({
+      content: 'Cerrar Sesión...'
     });
-    alert.present();
+  
+    loading.present();
+  
+    setTimeout(() => {
+      loading.dismiss();
+    }, 5000);
   }
 
 }
