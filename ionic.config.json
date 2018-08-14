@@ -1,0 +1,7 @@
+{
+  "name": "adminmobile",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
