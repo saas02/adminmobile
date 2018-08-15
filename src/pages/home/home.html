@@ -7,6 +7,50 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <h3>Bienvenido </h3> <p>{{ users.nombre }}.</p>    
+<ion-content padding>      
+
+    <ion-item>
+        <ion-label>Activo</ion-label>
+        <ion-select [(ngModel)]="cars">
+          <ion-option value="{{cars.id_activo}}">{{cars.nombre_activo}}</ion-option>          
+        </ion-select>
+      </ion-item>
+
+  <div padding>
+    <ion-segment [(ngModel)]="pet">
+      <ion-segment-button value="revision">
+        Revision
+      </ion-segment-button>
+      <ion-segment-button value="novedades">
+        Novedades
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <form name="Formulario" (ngSubmit)="login()" novalidate>
+
+    <div [ngSwitch]="pet">
+      <ion-list *ngSwitchCase="'novedades'">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="img/thumbnail-puppy-1.jpg">
+          </ion-thumbnail>
+          <h2>Ruby</h2>
+        </ion-item>
+        ...
+      </ion-list>
+    
+      <ion-list *ngSwitchCase="'revision'">
+        <ion-item>
+          <ion-thumbnail item-start>
+            <img src="img/thumbnail-kitten-1.jpg">
+          </ion-thumbnail>
+          <h2>Luna</h2>
+        </ion-item>
+        ...
+      </ion-list>
+    </div>
+
+  </form>
+
 </ion-content>

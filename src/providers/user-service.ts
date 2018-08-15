@@ -19,4 +19,12 @@ export class UserService {
     return this.http.get('https://randomuser.me/api/?results=25');
   }
 
+  getList(){
+    return this.http.get('https://randomuser.me/api/?results=25');
+  }
+
+  getListCars(){
+    return this.http.get('https://randomuser.me/api/?results=25');
+  }
+
 }
