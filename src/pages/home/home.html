@@ -7,14 +7,13 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>      
+<ion-content padding>        
 
-    <ion-item>
-        <ion-label>Activo</ion-label>
-        <ion-select [(ngModel)]="cars">
-          <ion-option value="{{cars.id_activo}}">{{cars.nombre_activo}}</ion-option>          
-        </ion-select>
-      </ion-item>
+  <ion-item>
+    <ion-select>
+      <ion-option *ngFor="let car of cars" [value]="car.id_activo">{{car.nombre}}</ion-option>
+    </ion-select>
+  </ion-item> 
 
   <div padding>
     <ion-segment [(ngModel)]="pet">
