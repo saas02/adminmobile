@@ -10,10 +10,21 @@
 <ion-content padding>        
 
   <ion-item>
-    <ion-select>
+      <ion-label color="primary">Activo</ion-label>
+    <ion-select>      
       <ion-option *ngFor="let car of cars" [value]="car.id_activo">{{car.nombre}}</ion-option>
-    </ion-select>
+    </ion-select>    
   </ion-item> 
+    
+  <ion-item>
+      <ion-label color="primary" fixed>Kilometraje</ion-label>
+      <ion-input [(ngModel)]='nameKm' ></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label color="primary" fixed>Combustible</ion-label>
+      <ion-input name='combustible' ></ion-input>
+  </ion-item>
 
   <div padding>
     <ion-segment [(ngModel)]="pet">
@@ -39,14 +50,31 @@
         ...
       </ion-list>
     
-      <ion-list *ngSwitchCase="'revision'">
-        <ion-item>
-          <ion-thumbnail item-start>
-            <img src="img/thumbnail-kitten-1.jpg">
-          </ion-thumbnail>
-          <h2>Luna</h2>
-        </ion-item>
-        ...
+      <ion-list *ngSwitchCase="'revision'">                   
+
+          <ion-item-divider *ngFor="let check of checkList" >
+            {{check.nombre}}
+          </ion-item-divider>
+
+            <!--<ion-item>
+              Item
+            </ion-item>          
+            <ion-item detail-push>
+              Item with Detail Arrow
+            </ion-item>          
+            
+
+            <ion-item-divider>
+              Item Divider
+            </ion-item-divider>          
+                
+            <ion-item no-lines>
+              Item with no border
+            </ion-item>          
+            <ion-item text-wrap>
+              Multiline text that should wrap when it is too long
+              to fit on one line in the item.
+            </ion-item>  -->
       </ion-list>
     </div>
 
