@@ -43,7 +43,7 @@
       <ion-list *ngSwitchCase="'novedades'">
           <ion-item>
             <ion-label color="dark">Fecha Reporte</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY"></ion-datetime>
+            <ion-datetime displayFormat="MM/DD/YYYY" ></ion-datetime>
           </ion-item>
           <ion-item>
             <ion-label color="dark">Novedad</ion-label>
@@ -58,12 +58,25 @@
       <ion-list *ngSwitchCase="'revision'">
         <div *ngFor="let check of checkList">
           <ion-label>{{check.nombre}}</ion-label>
-          <div *ngFor="let campos of check.campos">
+          <div *ngFor="let campos of check.campos, let i = index"  (click)="CheckedAll(i)">
             {{campos.texto_campo}}
             <ion-list>
-              <ion-item *ngFor="let opciones of campos.opciones">
-                <ion-label>{{opciones.value_opcion}}-{{opciones.texto_opcion}}</ion-label>
-                <ion-checkbox color="dark"></ion-checkbox>
+              <ion-item *ngFor="let opciones of campos.opciones, let j = index">
+                <!--<ion-label>{{opciones.value_opcion}}-{{opciones.texto_opcion}}</ion-label>
+                <ion-checkbox color="dark"  (click)="addCheckbox($event, opciones.value_opcion)"></ion-checkbox>-->
+                <div class="checkbox">
+                  <label>
+                      <input type="checkbox"  
+                        class="checkListInfo_{{i}}"
+                        id="checkListInfo_{{i}}_{{j}}" 
+                        name="checkListInfo_{{i}}_{{j}}" 
+                        value="{{opciones.value_opcion}}"
+                        (click)="addCheckbox($event, opciones.value_opcion, i, j)">
+                        {{opciones.texto_opcion}}
+                  </label>
+                </div>
+  
+
               </ion-item>
             </ion-list>
           </div>

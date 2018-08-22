@@ -14,6 +14,8 @@ export class HomePage {
   checkList: any[] = [];
   cars: any[] = [];
   nameKm: string;
+  checkeds = [];
+  selectedArray :any = [];
 
 
   constructor(
@@ -79,6 +81,53 @@ export class HomePage {
       this.nameKm = null;
     }
   }
+
+  checkAll(){
+    //for(let i =0; i <= this.testList.length; i++) {
+      //this.testList[i].checked = true;
+    //}
+    //console.log(this.testList);
+  }
+
+  addCheckbox(event, checkbox : String, i, j){    
+    if ( event.target.checked ) {
+      document.getElementById("checkListInfo_"+i+"_"+j).checked = true;
+      this.checkeds.push(checkbox);
+    } else {
+      let index = this.removeCheckedFromArray(checkbox);
+      this.checkeds.splice(index,1);
+    }    
+  }
+
+  //Removes checkbox from array when you uncheck it
+  removeCheckedFromArray(checkbox : String) {
+    return this.checkeds.findIndex((category)=>{
+      return category === checkbox;
+    })
+  }
+
+  //Empties array with checkedboxes
+  emptyCheckedArray() {
+    this.checkeds = [];
+  }
+
+  CheckedAll(indexValue) {
+    //Do whatever    
+    for(let i = 0; i < document.getElementsByClassName("checkListInfo_"+indexValue).length; i++) {            
+      if(document.getElementById("checkListInfo_"+indexValue+"_"+i)){
+        console.log("checkListInfo_"+indexValue+"_"+i);        
+        if(document.getElementById("checkListInfo_"+indexValue+"_"+i).checked){                    
+          document.getElementById("checkListInfo_"+indexValue+"_"+i).checked = false;          
+        }else{
+            document.getElementById("checkListInfo_"+indexValue+"_"+i).checked = true;                                
+        }
+      }      
+    }
+
+  }
+
+  
+  
 
 
 
