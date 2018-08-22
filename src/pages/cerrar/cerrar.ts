@@ -19,29 +19,29 @@ export class CerrarPage {
 
   constructor(
     public navCtrl: NavController,
-    public navParams: NavParams, 
+    public navParams: NavParams,
     public storage: Storage,
     public loadingCtrl: LoadingController
   ) {
   }
 
-  ionViewDidLoad() {    
+  ionViewDidLoad() {
     this.presentLoadingDefault();
     //this.navCtrl.push(LoginPage);  
     this.storage.clear();
-    this.navCtrl.setRoot(LoginPage, {}, {animate: true, direction: 'forward'}); 
+    this.navCtrl.setRoot(LoginPage, {}, { animate: true, direction: 'forward' });
   }
 
   presentLoadingDefault() {
     let loading = this.loadingCtrl.create({
       content: 'Cerrar Sesión...'
     });
-  
+
     loading.present();
-  
+
     setTimeout(() => {
       loading.dismiss();
-    }, 5000);
+    }, 1000);
   }
 
 }

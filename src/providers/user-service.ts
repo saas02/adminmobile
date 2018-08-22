@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AlertController } from 'ionic-angular';
 
 
 /*
@@ -11,20 +12,30 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class UserService {
 
-  constructor(public http: HttpClient) {
-    console.log('Hello UserService Provider');
+  constructor(
+    public http: HttpClient,
+    public alertCtrl: AlertController
+  ) {
+    //console.log('Hello UserService Provider');
   }
 
   getUsers() {
     return this.http.get('https://randomuser.me/api/?results=25');
   }
 
-  getList(){
+  getList() {
     return this.http.get('https://randomuser.me/api/?results=25');
   }
 
-  getListCars(){
+  getListCars() {
     return this.http.get('https://randomuser.me/api/?results=25');
+  }
+
+  showAlert(tittle) {
+    const alert = this.alertCtrl.create({
+      title: tittle
+    });
+    alert.present();
   }
 
 }
