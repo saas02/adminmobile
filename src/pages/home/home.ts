@@ -18,12 +18,13 @@ export class HomePage {
   nameKm: string;
   fechaHoy: any;
   
+    
 
   constructor(
     public navCtrl: NavController,
     public storage: Storage,
     public userService: UserService,
-    public loadingCtrl: LoadingController,
+    public loadingCtrl: LoadingController,    
     public navParams: NavParams
   ) {
 
@@ -86,7 +87,9 @@ export class HomePage {
 
   addCheckbox(event, checkbox : String, i, j, k){
     if ( event.target.checked ) {
-      document.getElementById("checkListInfo_"+i+"_"+j+"_"+k).checked = true;
+      let e2 = document.getElementById("checkListInfo_"+i+"_"+j+"_"+k);
+      (<HTMLInputElement>e2).checked = true; 
+      //document.getElementById("checkListInfo_"+i+"_"+j+"_"+k).checked = true;
       this.checkeds.push(checkbox);
     } else {
       let index = this.removeCheckedFromArray(checkbox);
@@ -103,11 +106,14 @@ export class HomePage {
 
   CheckedAll(i, j) {
     //Do whatever       
-      var isChecked = document.getElementById("checkAll_"+i+"_"+j).checked;         
+      let e2 = document.getElementById("checkAll_"+i+"_"+j);      
+      var isChecked = (<HTMLInputElement>e2).checked;//document.getElementById("checkAll_"+i+"_"+j).checked;         
       var checking = (isChecked) ? true: false;             
       for(let l = 0; l < document.getElementsByClassName("checkListInfo_"+i+'_'+j).length; l++) {              
         if(document.getElementById("checkListInfo_"+i+'_'+j+'_'+l)){
-          document.getElementById("checkListInfo_"+i+'_'+j+'_'+l).checked = checking;
+          let e3 = document.getElementById("checkListInfo_"+i+'_'+j+'_'+l);      
+          (<HTMLInputElement>e3).checked = checking;
+          //document.getElementById("checkListInfo_"+i+'_'+j+'_'+l).checked = checking;
         }
       }
   }
