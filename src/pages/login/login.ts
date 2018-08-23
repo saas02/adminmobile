@@ -109,8 +109,7 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
-    this.storage.clear();
-    console.log('ionViewDidLoad LoginPage');
+    this.storage.clear();    
   }
 
   presentLoadingDefault() {

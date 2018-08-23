@@ -43,7 +43,7 @@
       <ion-list *ngSwitchCase="'novedades'">
           <ion-item>
             <ion-label color="dark">Fecha Reporte</ion-label>
-            <ion-datetime displayFormat="MM/DD/YYYY" ></ion-datetime>
+            <ion-input [(ngModel)]='fechaHoy' name="fechaHoy"  [readonly]="isReadonly()"></ion-input>            
           </ion-item>
           <ion-item>
             <ion-label color="dark">Novedad</ion-label>
@@ -62,7 +62,7 @@
               <input type="checkbox" 
               id="checkAll_{{i}}_{{j}}"                
               (click)="CheckedAll(i, j)">              
-              {{campos.texto_campo}}-{{i}}-{{j}}
+              {{campos.texto_campo}}
             <ul>
               <li *ngFor="let opciones of campos.opciones, let k = index">                
                 <div class="checkbox">
