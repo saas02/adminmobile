@@ -56,29 +56,32 @@
       </ion-list>
 
       <ion-list *ngSwitchCase="'revision'">
-        <div *ngFor="let check of checkList">
+        <div *ngFor="let check of checkList, let i = index">
           <ion-label>{{check.nombre}}</ion-label>
-          <div *ngFor="let campos of check.campos, let i = index"  (click)="CheckedAll(i)">
-            {{campos.texto_campo}}
-            <ion-list>
-              <ion-item *ngFor="let opciones of campos.opciones, let j = index">
+          <div *ngFor="let campos of check.campos, let j = index">
+              <input type="checkbox" 
+              id="checkAll_{{i}}_{{j}}"                
+              (click)="CheckedAll(i, j)">              
+              {{campos.texto_campo}}-{{i}}-{{j}}
+            <ul>
+              <li *ngFor="let opciones of campos.opciones, let k = index">
                 <!--<ion-label>{{opciones.value_opcion}}-{{opciones.texto_opcion}}</ion-label>
                 <ion-checkbox color="dark"  (click)="addCheckbox($event, opciones.value_opcion)"></ion-checkbox>-->
                 <div class="checkbox">
                   <label>
                       <input type="checkbox"  
-                        class="checkListInfo_{{i}}"
-                        id="checkListInfo_{{i}}_{{j}}" 
-                        name="checkListInfo_{{i}}_{{j}}" 
+                        class="checkListInfo_{{j}}"
+                        id="checkListInfo_{{i}}_{{j}}_{{k}}" 
+                        name="checkListInfo_{{i}}_{{j}}_{{k}}" 
                         value="{{opciones.value_opcion}}"
-                        (click)="addCheckbox($event, opciones.value_opcion, i, j)">
+                        (click)="addCheckbox($event, opciones.value_opcion, i, j, k)">
                         {{opciones.texto_opcion}}
                   </label>
                 </div>
   
 
-              </ion-item>
-            </ion-list>
+              </li>
+            </ul>
           </div>
         </div>
       </ion-list>

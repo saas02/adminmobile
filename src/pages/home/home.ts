@@ -82,16 +82,9 @@ export class HomePage {
     }
   }
 
-  checkAll(){
-    //for(let i =0; i <= this.testList.length; i++) {
-      //this.testList[i].checked = true;
-    //}
-    //console.log(this.testList);
-  }
-
-  addCheckbox(event, checkbox : String, i, j){    
+  addCheckbox(event, checkbox : String, i, j, k){
     if ( event.target.checked ) {
-      document.getElementById("checkListInfo_"+i+"_"+j).checked = true;
+      document.getElementById("checkListInfo_"+i+"_"+j+"_"+k).checked = true;
       this.checkeds.push(checkbox);
     } else {
       let index = this.removeCheckedFromArray(checkbox);
@@ -106,24 +99,22 @@ export class HomePage {
     })
   }
 
-  //Empties array with checkedboxes
-  emptyCheckedArray() {
-    this.checkeds = [];
-  }
-
-  CheckedAll(indexValue) {
-    //Do whatever    
-    for(let i = 0; i < document.getElementsByClassName("checkListInfo_"+indexValue).length; i++) {            
-      if(document.getElementById("checkListInfo_"+indexValue+"_"+i)){
-        console.log("checkListInfo_"+indexValue+"_"+i);        
-        if(document.getElementById("checkListInfo_"+indexValue+"_"+i).checked){                    
-          document.getElementById("checkListInfo_"+indexValue+"_"+i).checked = false;          
-        }else{
-            document.getElementById("checkListInfo_"+indexValue+"_"+i).checked = true;                                
-        }
-      }      
-    }
-
+  CheckedAll(i, j, k) {
+    //Do whatever       
+      var isChecked = document.getElementById("checkAll_"+i+"_"+j).checked;      
+      if(isChecked){
+        for(let l = 0; l < document.getElementsByClassName("checkListInfo_"+i).length; i++) {      
+          if(document.getElementById("checkListInfo_"+i+"_"+j)){
+            document.getElementById("checkListInfo_"+i+"_"+j).checked = true;
+          }          
+        }        
+      }else{
+        for(let i = 0; i < document.getElementsByClassName("checkListInfo_"+i).length; i++) {      
+          if(document.getElementById("checkListInfo_"+i+"_"+i)){
+            document.getElementById("checkListInfo_"+i+"_"+i).checked = false;
+          }          
+        }      
+      }
   }
 
   
