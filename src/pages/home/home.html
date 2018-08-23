@@ -18,66 +18,74 @@
 
   <ion-item>
     <ion-label color="dark" fixed>Kilometraje</ion-label>
-    <ion-input type="number" [(ngModel)]='nameKm' (blur)="validateKm()"></ion-input>
+    <ion-input id="nameKm" type="number" [(ngModel)]='nameKm' (blur)="validateKm()"></ion-input>
   </ion-item>
 
   <ion-item>
     <ion-label color="dark" fixed>Combustible</ion-label>
-    <ion-input name='combustible'></ion-input>
+    <ion-input id='combustible' name='combustible'></ion-input>
   </ion-item>
 
-  <div padding>
-    <ion-segment [(ngModel)]="pet">
-      <ion-segment-button value="revision">
-        Revision
-      </ion-segment-button>
-      <ion-segment-button value="novedades">
-        Novedades
-      </ion-segment-button>
-    </ion-segment>
-  </div>
+  <form name="FormularioTotal" id="FormularioTotal" (ngSubmit)="guardar()" novalidate>
 
-  <form name="Formulario" (ngSubmit)="login()" novalidate>
+    <ion-slides pager>
 
-    <div [ngSwitch]="pet">
-      <ion-list *ngSwitchCase="'novedades'">
+      <ion-slide>        
+        <ion-list>
+          <ion-item>
+            <div *ngFor="let check of checkList, let i = index">
+              <ion-label>{{check.nombre}}</ion-label>
+              <div *ngFor="let campos of check.campos, let j = index">
+                <input type="checkbox" id="checkAll_{{i}}_{{j}}" (click)="CheckedAll(i, j)"> {{campos.texto_campo}}
+                <ul>
+                  <li *ngFor="let opciones of campos.opciones, let k = index">
+                    <div class="checkbox">
+                      <label>
+                        <input type="checkbox" class="checkListInfo checkListInfo_{{i}}_{{j}}" id="checkListInfo_{{i}}_{{j}}_{{k}}" name="checkListInfo_{{i}}_{{j}}_{{k}}"
+                          value="{{opciones.value_opcion}}" (click)="addCheckbox($event, opciones.value_opcion, i, j, k)">{{opciones.texto_opcion}}
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>        
+      </ion-slide>
+
+      <ion-slide>
+        <ion-list>
           <ion-item>
             <ion-label color="dark">Fecha Reporte</ion-label>
-            <ion-input [(ngModel)]='fechaHoy' name="fechaHoy"  [readonly]="isReadonly()"></ion-input>            
+            <ion-input [(ngModel)]='fechaHoy' name="fechaHoy" [readonly]="isReadonly()"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-label color="dark">Novedad</ion-label>
-            <ion-textarea></ion-textarea>
+            <table id="tabla">
+              <tr>
+                <td>Novedad</td>
+                <td>Observaciones</td>
+              </tr>
+              <tr id='tr_0'>
+                <td><textarea id='novedad_0' name='novedad_0' rows="2" cols="15"></textarea> </td>
+                <td><textarea id='observacion_0' name='observacion_0' rows="2" cols="15"></textarea></td>
+                <td><a id="addNovedad0" name="addNovedad0" (click)="addNovedad()"><ion-icon name="add-circle"></ion-icon></a></td>
+                <td><a id="delNovedad0" name="delNovedad0" (click)="delNovedad()"><ion-icon name="remove-circle"></ion-icon></a></td>
+              </tr>
+            </table>
           </ion-item>
           <ion-item>
-            <ion-label color="dark">Instrucci&oacute;n recibida</ion-label>
-            <ion-textarea></ion-textarea>
+            <div padding>
+              <button ion-button block type="submit">Guardar</button>
+            </div>
           </ion-item>
-      </ion-list>
+        </ion-list>
+      </ion-slide>
 
-      <ion-list *ngSwitchCase="'revision'">
-        <div *ngFor="let check of checkList, let i = index">
-          <ion-label>{{check.nombre}}</ion-label>
-          <div *ngFor="let campos of check.campos, let j = index">
-              <input type="checkbox" 
-              id="checkAll_{{i}}_{{j}}"                
-              (click)="CheckedAll(i, j)">              
-              {{campos.texto_campo}}
-            <ul>
-              <li *ngFor="let opciones of campos.opciones, let k = index">                
-                <div class="checkbox">
-                  <label>
-                      <input type="checkbox"  class="checkListInfo_{{i}}_{{j}}" id="checkListInfo_{{i}}_{{j}}_{{k}}" 
-                        name="checkListInfo_{{i}}_{{j}}_{{k}}" value="{{opciones.value_opcion}}"
-                        (click)="addCheckbox($event, opciones.value_opcion, i, j, k)">{{opciones.texto_opcion}}
-                  </label>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </ion-list>
-    </div>
+
+
+
+
+    </ion-slides>
 
   </form>
 
