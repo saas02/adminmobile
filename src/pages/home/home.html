@@ -8,35 +8,39 @@
 </ion-header>
 
 <ion-content padding>
-
-  <ion-item>
-    <ion-label color="dark">Activo</ion-label>
-    <ion-select>
-      <ion-option *ngFor="let car of cars" [value]="car.id_activo">{{car.nombre}}</ion-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="dark" fixed>Kilometraje</ion-label>
-    <ion-input id="nameKm" type="number" [(ngModel)]='nameKm' (blur)="validateKm()"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label color="dark" fixed>Combustible</ion-label>
-    <ion-input id='combustible' name='combustible'></ion-input>
-  </ion-item>
-
   <form name="FormularioTotal" id="FormularioTotal" (ngSubmit)="guardar()" novalidate>
 
-    <ion-slides pager>
+    <ion-item>
+      <ion-label color="dark">Activo</ion-label>
+      <ion-select>
+        <ion-option *ngFor="let car of cars" [value]="car.id_activo">{{car.nombre}}</ion-option>
+      </ion-select>
+    </ion-item>    
+      <table>
+        <tr>
+          <ion-item>
+            <td style="width: 40%;"><label>Kilometraje</label></td>
+            <td><input type="number" id="nameKm" name="nameKm" (blur)="validateKm()"></td>
+          </ion-item>
+        </tr>
+        <tr>
+          <ion-item>
+            <td style="width: 40%;"><label>Combustible</label></td>
+            <td><input id="combustible" name="combustible"></td>
+          </ion-item>
+        </tr>
+      </table>
+    
 
-      <ion-slide>        
+    <ion-slides pager>
+      <ion-slide>
         <ion-list>
           <ion-item>
             <div *ngFor="let check of checkList, let i = index">
               <ion-label>{{check.nombre}}</ion-label>
               <div *ngFor="let campos of check.campos, let j = index">
-                <input type="checkbox" id="checkAll_{{i}}_{{j}}" (click)="CheckedAll(i, j)"> {{campos.texto_campo}}
+                <input class="checkAll" type="checkbox" id="checkAll_{{i}}_{{j}}" (click)="CheckedAll(i, j)"> {{campos.texto_campo}}
+                <input type="hidden" id="checkValidate_{{i}}_{{j}}" id="checkValidate_{{i}}_{{j}}">
                 <ul>
                   <li *ngFor="let opciones of campos.opciones, let k = index">
                     <div class="checkbox">
@@ -50,7 +54,7 @@
               </div>
             </div>
           </ion-item>
-        </ion-list>        
+        </ion-list>
       </ion-slide>
 
       <ion-slide>
@@ -66,8 +70,8 @@
                 <td>Observaciones</td>
               </tr>
               <tr id='tr_0'>
-                <td><textarea id='novedad_0' name='novedad_0' rows="2" cols="15"></textarea> </td>
-                <td><textarea id='observacion_0' name='observacion_0' rows="2" cols="15"></textarea></td>
+                <td><textarea id='novedad_0' name='novedad_0' rows="2" cols="14"></textarea> </td>
+                <td><textarea id='observacion_0' name='observacion_0' rows="2" cols="14"></textarea></td>
                 <td><a id="addNovedad0" name="addNovedad0" (click)="addNovedad()"><ion-icon name="add-circle"></ion-icon></a></td>
                 <td><a id="delNovedad0" name="delNovedad0" (click)="delNovedad()"><ion-icon name="remove-circle"></ion-icon></a></td>
               </tr>

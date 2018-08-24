@@ -70,7 +70,7 @@ export class HomePage {
         (data) => { // Success                          
           data['listCars'] = JSON.parse('{"code":"00","response":[{"id_tipo_activo":"3","nombre":"Camion","id_activo":"1","nombre_activo":"12 - camion freightliner","Kilometraje":"130010.00"}]}');
           this.cars = data['listCars']['response'];
-          //this.nameKm = data['listCars']['response'][0].Kilometraje;
+          this.nameKm = data['listCars']['response'][0].Kilometraje;
           this.storage.set('listCars', JSON.stringify(data['listCars']['response']));
         },
         (error) => {
@@ -79,8 +79,8 @@ export class HomePage {
       )
   }
 
-  validateKm() {
-    if (parseInt(this.cars[0].Kilometraje) > parseInt(this.nameKm)) {
+  validateKm() {    
+    if (parseInt(this.cars[0].Kilometraje) > jQuery('#nameKm').val()) {
       this.userService.showAlert('El Kilometraje debe ser mayor a: ' + parseInt(this.cars[0].Kilometraje));
       this.nameKm = null;
     }
@@ -88,12 +88,14 @@ export class HomePage {
 
   addCheckbox(event, checkbox: String, i, j, k) {
     if (event.target.checked) {
+      jQuery('#checkValidate_'+ i + "_" + j).val(1);
       let e2 = document.getElementById("checkListInfo_" + i + "_" + j + "_" + k);
       (<HTMLInputElement>e2).checked = true;
       //document.getElementById("checkListInfo_"+i+"_"+j+"_"+k).checked = true;
       this.checkeds.push(checkbox);
     } else {
       let index = this.removeCheckedFromArray(checkbox);
+      jQuery('#checkValidate_'+ i + "_" + j).val(0);
       this.checkeds.splice(index, 1);
     }
   }
@@ -101,8 +103,8 @@ export class HomePage {
   addNovedad() {
     var trs = jQuery("#tabla tr").length;
     var nuevaFila = "<tr id='tr_" + trs + "'>";    
-    nuevaFila += "<td><textarea id='novedad_"+trs+"' name='novedad_"+trs+"' rows='2' cols='15'></textarea></td>";
-    nuevaFila += "<td><textarea id='observacion_"+trs+"' name='observacion_"+trs+"' rows='2' cols='15'></textarea></td>";
+    nuevaFila += "<td><textarea id='novedad_"+trs+"' name='novedad_"+trs+"' rows='2' cols='14'></textarea></td>";
+    nuevaFila += "<td><textarea id='observacion_"+trs+"' name='observacion_"+trs+"' rows='2' cols='14'></textarea></td>";
     nuevaFila += "</tr>";
     jQuery("#tabla").append(nuevaFila);
   }
@@ -115,13 +117,32 @@ export class HomePage {
 
   guardar() {
     this.presentLoadingDefault('Guardando Informacion');
-    //if(jQuery('#nameKm').val() == ''){
-    //return this.userService.showAlert('Diligenciar el Kilometraje');
-    //}else if(jQuery('#combustible').val() == ''){
-    //return  this.userService.showAlert('Diligenciar el Combustible');
-    //}  
-    var datos = jQuery("#FormularioTotal").serialize();
-    console.log(datos);
+    var validate = true;
+    var messageError = '';
+    jQuery('.checkAll').each(function( index ) {
+      var id = jQuery( this ).attr('id').split('_');      
+      if(jQuery('#checkValidate_'+id[1]+'_'+id[2]).val() != 1){
+          validate = false;
+          messageError = 'Validar Formulario';
+      }      
+    });
+
+    if(jQuery('#nameKm').val() == ''){
+      validate = false;      
+      messageError = 'Diligenciar el Kilometraje';
+      //return this.userService.showAlert(messageError);
+    }else if(jQuery('#combustible').val() == ''){
+      validate = false;
+      messageError = 'Diligenciar el Combustible';
+      //return this.userService.showAlert(messageError);
+    }  
+    if(validate){
+      var datos = jQuery("#FormularioTotal").serialize();
+      console.log(datos);
+    }else{
+      this.userService.showAlert(messageError);      
+    }
+    
 
   }
 
@@ -134,14 +155,17 @@ export class HomePage {
 
   CheckedAll(i, j) {
     //Do whatever           
+    jQuery('#checkValidate_'+ i + "_" + j).val(1);
     let e2 = document.getElementById("checkAll_" + i + "_" + j);
-    var isChecked = (<HTMLInputElement>e2).checked;//document.getElementById("checkAll_"+i+"_"+j).checked;         
+    var isChecked = (<HTMLInputElement>e2).checked;        
     var checking = (isChecked) ? true : false;
     for (let l = 0; l < document.getElementsByClassName("checkListInfo_" + i + '_' + j).length; l++) {
       if (document.getElementById("checkListInfo_" + i + '_' + j + '_' + l)) {
         let e3 = document.getElementById("checkListInfo_" + i + '_' + j + '_' + l);
         (<HTMLInputElement>e3).checked = checking;
-        //document.getElementById("checkListInfo_"+i+'_'+j+'_'+l).checked = checking;
+        if(!checking){
+          jQuery('#checkValidate_'+ i + "_" + j).val(0);
+        }
       }
     }
   }
